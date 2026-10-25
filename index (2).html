@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Har Ghar Jamea — Registration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1F5C58;
+    --teal-d: #143E3B;
+    --teal-l: #E4EFEC;
+    --gold: #B98A32;
+    --gold-l: #F4E7C8;
+    --ivory: #FBF7EE;
+    --parchment: #F3EADA;
+    --ink: #2A2A26;
+    --muted: #6E6A5E;
+    --line: #E3D7BF;
+    --green: #2E7D4F;
+    --green-l: #E3F2E8;
+    --red: #A8322D;
+    --red-l: #F8E4E2;
+    --amber: #A86B12;
+    --amber-l: #FBEFD9;
+    --radius: 14px;
+    --shadow: 0 10px 30px -14px rgba(20, 62, 59, .35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: 'Mulish', system-ui, sans-serif;
+    color: var(--ink);
+    background-color: var(--ivory);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23B98A32' stroke-opacity='.10' stroke-width='1'%3E%3Crect x='22' y='22' width='28' height='28'/%3E%3Crect x='22' y='22' width='28' height='28' transform='rotate(45 36 36)'/%3E%3Ccircle cx='36' cy='36' r='6'/%3E%3Cpath d='M0 0L22 22M72 0L50 22M0 72L22 50M72 72L50 50'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  h1, h2, h3 { font-family: 'Amiri', Georgia, serif; font-weight: 700; color: var(--teal-d); margin: 0; line-height: 1.2; }
+  a { color: var(--teal); }
+  button { font-family: inherit; }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 16px 40px; }
+
+  /* Header */
+  .hero { text-align: center; padding: 34px 8px 22px; position: relative; }
+  .hero .star { width: 46px; height: 46px; display: block; margin: 0 auto 12px; }
+  .hero h1 { font-size: clamp(30px, 6vw, 44px); }
+  .hero .sub { margin: 6px 0 0; color: var(--gold); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12.5px; }
+  .hero .sub2 { margin: 4px 0 0; color: var(--muted); font-weight: 600; font-size: 14px; letter-spacing: .02em; }
+  .crest { display: block; width: 100%; height: 22px; margin-top: 18px; }
+
+  .hero-img { width: 100%; border-radius: var(--radius); display: block; margin: 0 0 18px; box-shadow: var(--shadow); }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    position: relative;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-l);
+    border-radius: 10px; pointer-events: none;
+  }
+  @media (max-width: 520px) { .card { padding: 18px; } }
+
+  .intro { margin: 0 0 14px; color: var(--muted); }
+  .notice { background: var(--gold-l); border-left: 4px solid var(--gold); padding: 10px 14px; border-radius: 8px; margin: 0 0 18px; font-weight: 600; }
+
+  .step { padding: 18px 0 4px; border-top: 1px dashed var(--line); margin-top: 16px; }
+  .step:first-of-type { border-top: 0; margin-top: 0; padding-top: 4px; }
+  .step-title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .step-title .n {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--teal); color: #fff;
+    display: grid; place-items: center; font-weight: 800; font-size: 14px; flex: none;
+  }
+  .step-title h3 { font-size: 22px; }
+
+  label { display: block; font-weight: 700; font-size: 14px; margin: 0 0 6px; }
+  input, select, textarea {
+    width: 100%; font: inherit; font-size: 16px; padding: 12px 14px;
+    border: 1.5px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink);
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-l); }
+  input.its { letter-spacing: .18em; font-weight: 700; font-size: 20px; }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+  .row > .btn { flex: none; }
+  .field { margin-bottom: 12px; }
+  .wa { display: flex; gap: 8px; }
+  .wa .cc { flex: 0 0 84px; text-align: center; font-weight: 700; }
+  .wa input:not(.cc) { flex: 1; min-width: 0; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .btn {
+    border: 0; border-radius: 10px; padding: 12px 18px; font-weight: 800; font-size: 15px;
+    cursor: pointer; background: var(--teal); color: #fff; transition: transform .05s, background .15s;
+  }
+  .btn:hover { background: var(--teal-d); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn.gold { background: var(--gold); }
+  .btn.gold:hover { background: #9C7428; }
+  .btn.ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
+  .btn.ghost:hover { background: var(--teal-l); }
+  .btn.red { background: var(--red); }
+  .btn.red:hover { background: #8A2924; }
+  .btn.green { background: var(--green); }
+  .btn.sm { padding: 7px 12px; font-size: 13px; border-radius: 8px; }
+  .btn.block { width: 100%; }
+
+  .msg { margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-weight: 600; font-size: 14.5px; }
+  .msg.err { background: var(--red-l); color: var(--red); }
+  .msg.ok { background: var(--green-l); color: var(--green); }
+  .msg.warn { background: var(--amber-l); color: var(--amber); }
+  .msg:empty { display: none; }
+
+  .person {
+    display: flex; gap: 14px; align-items: center; margin-top: 12px;
+    background: var(--teal-l); border-radius: 12px; padding: 12px 14px;
+  }
+  .person .ava {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--teal); color: #fff;
+    display: grid; place-items: center; font-family: 'Amiri', serif; font-size: 22px; flex: none;
+  }
+  .person b { display: block; font-size: 17px; }
+  .person span { color: var(--muted); font-size: 14px; }
+
+  /* Date cards */
+  .days { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .day {
+    text-align: left; border: 1.5px solid var(--line); background: #fff; border-radius: 12px;
+    padding: 12px 14px; cursor: pointer; position: relative; transition: border-color .15s, box-shadow .15s;
+    color: var(--ink);
+  }
+  .day:hover:not(:disabled) { border-color: var(--teal); }
+  .day .wd { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  .day .dt { font-family: 'Amiri', serif; font-size: 26px; font-weight: 700; color: var(--teal-d); line-height: 1.1; }
+  .day .st { font-size: 13px; font-weight: 700; margin-top: 4px; color: var(--green); }
+  .day.sel { border-color: var(--teal); background: var(--teal-l); box-shadow: 0 0 0 3px var(--teal-l); }
+  .day.sel::after {
+    content: "✓"; position: absolute; top: 10px; right: 12px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--teal); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 800;
+  }
+  .day:disabled { cursor: not-allowed; background: #FAF8F3; }
+  .day:disabled .dt { color: #A9A497; }
+  .day.full .st, .day.closed .st { color: var(--red); }
+  .day.novisit { border-style: dashed; }
+  .day.novisit .st { color: var(--muted); }
+  .day.low .st { color: var(--amber); }
+  .slots { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .day.slot .dt { font-family: 'Mulish', sans-serif; font-size: 19px; font-weight: 800; }
+
+  /* Done */
+  .done { text-align: center; padding: 10px 0; }
+  .done .tick {
+    width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; margin: 0 auto 14px;
+    display: grid; place-items: center; font-size: 32px;
+  }
+  .done h2 { font-size: 30px; }
+  .ticket {
+    margin: 18px auto; max-width: 420px; text-align: left; border: 1.5px dashed var(--gold);
+    border-radius: 12px; padding: 14px 18px; background: var(--ivory);
+  }
+  .ticket div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .ticket div:last-child { border-bottom: 0; }
+  .ticket span { color: var(--muted); font-size: 14px; }
+  .ticket b { text-align: right; }
+  .ref { font-family: ui-monospace, Menlo, monospace; letter-spacing: .08em; color: var(--teal-d); }
+
+  .loading { text-align: center; padding: 40px 0; color: var(--muted); }
+  .spin {
+    width: 28px; height: 28px; border: 3px solid var(--teal-l); border-top-color: var(--teal);
+    border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Footer */
+  .foot { text-align: center; margin-top: 26px; font-size: 13px; color: var(--muted); }
+  .foot button { background: none; border: 0; color: var(--teal); font-weight: 700; cursor: pointer; font-size: 13px; padding: 0; }
+  .foot .mail { display: inline-block; margin-left: 6px; }
+
+  [hidden] { display: none !important; }
+</style>
+
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <svg class="star" viewBox="0 0 48 48" aria-hidden="true">
+      <g fill="none" stroke="#B98A32" stroke-width="1.6">
+        <rect x="11" y="11" width="26" height="26"/>
+        <rect x="11" y="11" width="26" height="26" transform="rotate(45 24 24)"/>
+        <circle cx="24" cy="24" r="6" fill="#1F5C58" stroke="none"/>
+      </g>
+    </svg>
+    <h1 id="title">Har Ghar Jamea</h1>
+    <p class="sub" id="subtitle">Rabvat Jibla</p>
+    <p class="sub2" id="subtitle2">Al Jamea tus Saifiyah - Surat</p>
+    <svg class="crest" viewBox="0 0 600 22" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 21 H230 Q250 21 262 10 Q274 0 300 0 Q326 0 338 10 Q350 21 370 21 H600" fill="none" stroke="#B98A32" stroke-width="1.2"/>
+      <circle cx="300" cy="12" r="3" fill="#1F5C58"/>
+    </svg>
+  </header>
+
+  <img id="heroImg" class="hero-img" alt="" hidden>
+
+  <main class="card">
+    <div id="loading" class="loading"><div class="spin"></div>Loading visit dates…</div>
+
+    <!-- Closed -->
+    <section id="closed" hidden>
+      <h2 style="font-size:26px;margin-bottom:8px">Registrations are closed</h2>
+      <p class="intro" id="closedText"></p>
+      <div id="closedDays" class="days"></div>
+    </section>
+
+    <!-- Form -->
+    <form id="form" hidden autocomplete="off">
+      <p class="intro" id="intro"></p>
+      <div class="notice" id="notice" hidden></div>
+
+      <div class="step">
+        <div class="step-title"><span class="n">1</span><h3>Your ITS ID</h3></div>
+        <div class="row">
+          <input id="its" class="its" inputmode="numeric" maxlength="8" placeholder="8-digit ITS ID" aria-label="ITS ID">
+          <button type="button" class="btn" id="btnLookup">Verify</button>
+        </div>
+        <div id="itsMsg" class="msg"></div>
+        <div id="person" class="person" hidden></div>
+
+        <div id="unlisted" hidden>
+          <div class="msg warn">We could not find this ITS ID in our records. Please re-enter it to make sure there is no typing mistake.</div>
+          <div class="field" style="margin-top:12px">
+            <label for="its2">Re-enter ITS ID</label>
+            <input id="its2" class="its" inputmode="numeric" maxlength="8">
+          </div>
+          <div class="field" id="nameWrap" hidden>
+            <label for="name">Full name (as on ITS)</label>
+            <input id="name" maxlength="120">
+            <div class="hint">Your registration will be checked by the office.</div>
+          </div>
+          <div id="unlistedMsg" class="msg"></div>
+        </div>
+      </div>
+
+      <div class="step" id="stepDate" hidden>
+        <div class="step-title"><span class="n">2</span><h3>Choose your visit date</h3></div>
+        <div id="days" class="days"></div>
+      </div>
+
+      <div class="step" id="stepSlot" hidden>
+        <div class="step-title"><span class="n">3</span><h3>Choose your time slot</h3></div>
+        <div id="slots" class="days slots"></div>
+      </div>
+
+      <div class="step" id="stepMobile" hidden>
+        <div class="step-title"><span class="n">4</span><h3>WhatsApp number</h3></div>
+        <div class="field">
+          <div class="wa">
+            <input id="cc" class="cc" inputmode="tel" maxlength="5" value="+91" aria-label="Country code">
+            <input id="mobile" inputmode="numeric" maxlength="15" placeholder="10-digit WhatsApp number" aria-label="WhatsApp number">
+          </div>
+          <div class="hint">Change the country code if your WhatsApp number is not Indian.</div>
+        </div>
+        <button type="submit" class="btn gold block" id="btnSubmit">Confirm registration</button>
+        <div id="formMsg" class="msg"></div>
+      </div>
+    </form>
+
+    <!-- Done -->
+    <section id="done" class="done" hidden>
+      <div class="tick">✓</div>
+      <h2>Registration confirmed</h2>
+      <p class="intro" style="margin-top:6px">Please keep a screenshot of this page.</p>
+      <div class="ticket" id="ticket"></div>
+      <button class="btn ghost" id="btnAnother" type="button">Register another person</button>
+    </section>
+  </main>
+
+  <footer class="foot">
+    Designed &amp; developed by DignityWorks ·
+    <button type="button" id="showMail">Contact</button>
+    <span class="mail" id="mail" hidden>dignityworks53@gmail.com <button type="button" id="copyMail">Copy</button></span>
+  </footer>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const S = { state: null, its: '', person: null, unlisted: false, date: '', slot: '', busy: false };
+
+  const API_URL = "https://script.google.com/macros/s/AKfycbw9C3CdmubKoIrEfUMRnGI1AOvPH5DlSyxnEiF0d4NA87fjplsHWRq4cyzjspFpJIZHrw/exec";
+  // Talks to the Apps Script web app with a plain, cookie-free request,
+  // so it works no matter how many Google accounts the browser has.
+  function call(fn, ...args) {
+    return fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ fn: fn, args: args }),
+      redirect: 'follow',
+      credentials: 'omit'
+    }).then(r => r.text()).then(text => {
+      let r;
+      try { r = JSON.parse(text); } catch (e) { throw new Error('Could not reach the server. Please check your internet and try again.'); }
+      if (!r.ok) throw new Error(r.error || 'Something went wrong. Please try again.');
+      return r.data;
+    }, () => { throw new Error('Could not reach the server. Please check your internet and try again.'); });
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+  function setMsg(el, text, kind) { el.className = 'msg ' + (kind || 'err'); el.textContent = text || ''; }
+
+  function load() {
+    return call('getPublicState').then(st => {
+      S.state = st;
+      $('title').textContent = st.title;
+      $('subtitle').textContent = st.subtitle;
+      $('subtitle2').textContent = st.subtitle2;
+      $('subtitle2').hidden = !st.subtitle2;
+      if (!S.ccTouched) { $('cc').value = st.countryCode || '+91'; updateWaHint(); }
+      $('loading').hidden = true;
+      if (!st.open) {
+        $('form').hidden = true;
+        $('closed').hidden = false;
+        $('closedText').textContent = !st.master
+          ? 'Registrations are not open at the moment. Please check again later.'
+          : 'All upcoming visit dates are full or booking has closed. Please check again later.';
+        $('closedDays').innerHTML = st.days.map(dayCard).join('');
+        return;
+      }
+      $('closed').hidden = true;
+      $('form').hidden = false;
+      $('intro').textContent = st.intro;
+      $('notice').hidden = !st.notice;
+      $('notice').textContent = st.notice;
+      renderDays();
+      if (st.hasHero && !$('heroImg').src) {
+        call('getHeroImage').then(src => { if (src) { $('heroImg').src = src; $('heroImg').hidden = false; } });
+      }
+    }).catch(err => {
+      $('loading').innerHTML = 'Could not load the portal. Please refresh the page.<br><small>' + esc(err.message) + '</small>';
+    });
+  }
+
+  function dayCard(d) {
+    let st = '', cls = d.state;
+    if (d.state === 'open') { st = d.left + (d.left === 1 ? ' seat left' : ' seats left'); if (d.left <= 5) cls += ' low'; }
+    else if (d.state === 'full') st = 'Full';
+    else if (d.state === 'closed') st = 'Booking closed';
+    else if (d.state === 'novisit') st = 'No visit' + (d.note ? ' · ' + d.note : '');
+    const sel = d.date === S.date ? ' sel' : '';
+    return `<button type="button" class="day ${cls}${sel}" data-date="${d.date}" ${d.state !== 'open' ? 'disabled' : ''}>
+      <div class="wd">${esc(d.weekday)}</div>
+      <div class="dt">${esc(d.dayNum)} ${esc(d.month)}</div>
+      <div class="st">${esc(st)}</div></button>`;
+  }
+
+  function renderDays() {
+    const days = S.state.days;
+    $('days').innerHTML = days.length ? days.map(dayCard).join('') : '<p class="intro">No visit dates are open yet.</p>';
+    renderSlots();
+  }
+
+  function renderSlots() {
+    const day = S.state.days.find(d => d.date === S.date);
+    if (!day) { $('stepSlot').hidden = true; S.slot = ''; $('stepMobile').hidden = true; return; }
+    const cur = day.slots.find(x => x.slot === S.slot);
+    if (!cur || cur.state !== 'open') { S.slot = ''; $('stepMobile').hidden = true; }
+    $('stepSlot').hidden = false;
+    $('slots').innerHTML = day.slots.map(x => {
+      let st = '', cls = x.state;
+      if (x.state === 'open') { st = x.left + (x.left === 1 ? ' seat left' : ' seats left'); if (x.left <= 5) cls += ' low'; }
+      else if (x.state === 'full') st = 'Full';
+      else if (x.state === 'novisit') st = 'No visit';
+      else st = 'Closed';
+      return `<button type="button" class="day slot ${cls}${x.slot === S.slot ? ' sel' : ''}" data-slot="${esc(x.slot)}" ${x.state !== 'open' ? 'disabled' : ''}>
+        <div class="wd">Time</div><div class="dt">${esc(x.slot)}</div><div class="st">${esc(st)}</div></button>`;
+    }).join('');
+  }
+
+  $('slots').addEventListener('click', e => {
+    const b = e.target.closest('.slot');
+    if (!b || b.disabled) return;
+    S.slot = b.dataset.slot;
+    renderSlots();
+    $('stepMobile').hidden = false;
+    $('mobile').focus();
+  });
+
+  $('days').addEventListener('click', e => {
+    const b = e.target.closest('.day');
+    if (!b || b.disabled) return;
+    if (S.date !== b.dataset.date) S.slot = '';
+    S.date = b.dataset.date;
+    renderDays();
+    $('stepSlot').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  function resetPerson() {
+    S.person = null; S.unlisted = false; S.date = ''; S.slot = '';
+    $('person').hidden = true; $('unlisted').hidden = true; $('nameWrap').hidden = true;
+    $('stepDate').hidden = true; $('stepSlot').hidden = true; $('stepMobile').hidden = true;
+    $('its2').value = ''; $('name').value = '';
+    setMsg($('itsMsg'), ''); setMsg($('unlistedMsg'), ''); setMsg($('formMsg'), '');
+  }
+
+  $('its').addEventListener('input', e => {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
+    if (e.target.value !== S.its) { S.its = ''; resetPerson(); }
+    if (e.target.value.length === 8) lookup();
+  });
+  $('btnLookup').addEventListener('click', lookup);
+
+  function lookup() {
+    const its = $('its').value;
+    if (!/^\d{8}$/.test(its)) { setMsg($('itsMsg'), 'ITS ID must be exactly 8 digits.'); return; }
+    if (S.busy || S.its === its) return;
+    S.busy = true;
+    $('btnLookup').disabled = true; $('btnLookup').textContent = 'Checking…';
+    resetPerson();
+    call('lookupIts', its).then(r => {
+      if (!r.ok) { setMsg($('itsMsg'), r.error); return; }
+      S.its = its;
+      if (r.existing.length && S.state.onePerIts) {
+        setMsg($('itsMsg'), 'This ITS ID is already registered for ' + r.existing[0].label + '. Only one upcoming visit is allowed at a time.', 'warn');
+        if (r.found) showPerson(r);
+        return;
+      }
+      if (r.found) {
+        showPerson(r);
+        if (!r.eligible) { setMsg($('itsMsg'), r.reason); return; }
+        $('stepDate').hidden = false;
+      } else if (r.allowUnlisted) {
+        S.unlisted = true;
+        $('unlisted').hidden = false;
+        $('its2').focus();
+      } else {
+        setMsg($('itsMsg'), 'This ITS ID is not in our records. Please contact the office.');
+      }
+    }).catch(err => setMsg($('itsMsg'), err.message))
+      .finally(() => { S.busy = false; $('btnLookup').disabled = false; $('btnLookup').textContent = 'Verify'; });
+  }
+
+  function showPerson(r) {
+    S.person = r;
+    $('person').hidden = false;
+    $('person').innerHTML = `<div class="ava">${esc((r.name || '?').charAt(0))}</div>
+      <div><b>${esc(r.name)}</b><span>${esc(r.jamaat || '')}</span></div>`;
+  }
+
+  $('its2').addEventListener('input', e => {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
+    const v = e.target.value;
+    if (v.length < 8) { $('nameWrap').hidden = true; setMsg($('unlistedMsg'), ''); return; }
+    if (v !== S.its) {
+      setMsg($('unlistedMsg'), 'The two ITS IDs do not match. Please check the number in the first box.');
+      $('nameWrap').hidden = true;
+      return;
+    }
+    setMsg($('unlistedMsg'), '');
+    $('nameWrap').hidden = false;
+    $('name').focus();
+  });
+  $('name').addEventListener('input', () => {
+    $('stepDate').hidden = $('name').value.trim().length < 3;
+  });
+
+  function isIndia() { return $('cc').value.replace(/\D/g, '') === '91'; }
+  function updateWaHint() {
+    $('mobile').placeholder = isIndia() ? '10-digit WhatsApp number' : 'WhatsApp number';
+    $('mobile').maxLength = isIndia() ? 10 : 15;
+  }
+  $('cc').addEventListener('input', e => {
+    S.ccTouched = true;
+    const d = e.target.value.replace(/\D/g, '').slice(0, 4);
+    e.target.value = '+' + d;
+    updateWaHint();
+  });
+  $('mobile').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '');
+    if (isIndia() && v.length > 10 && v.startsWith('91')) v = v.slice(2);
+    e.target.value = v.slice(0, isIndia() ? 10 : 15);
+  });
+
+  $('form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (S.busy) return;
+    if (!S.its) { setMsg($('formMsg'), 'Please verify your ITS ID first.'); return; }
+    if (!S.date) { setMsg($('formMsg'), 'Please choose a visit date.'); return; }
+    if (!S.slot) { setMsg($('formMsg'), 'Please choose a time slot.'); return; }
+    const digits = $('mobile').value.replace(/\D/g, '');
+    const cc = $('cc').value.replace(/\D/g, '');
+    if (!cc) { setMsg($('formMsg'), 'Please enter the country code, e.g. +91.'); return; }
+    if (isIndia() ? !/^[6-9]\d{9}$/.test(digits) : (digits.length < 6 || digits.length > 14)) {
+      setMsg($('formMsg'), isIndia() ? 'Please enter a valid 10-digit WhatsApp number.' : 'Please enter a valid WhatsApp number.');
+      return;
+    }
+    S.busy = true;
+    $('btnSubmit').disabled = true; $('btnSubmit').textContent = 'Registering…';
+    setMsg($('formMsg'), '');
+    call('register', {
+      its: S.its, confirmIts: $('its2').value, name: $('name').value,
+      date: S.date, slot: S.slot, cc: $('cc').value, mobile: $('mobile').value
+    }).then(r => {
+      if (!r.ok) {
+        setMsg($('formMsg'), r.error);
+        load();   // refresh seat counts
+        return;
+      }
+      showDone(r);
+    }).catch(err => setMsg($('formMsg'), err.message))
+      .finally(() => { S.busy = false; $('btnSubmit').disabled = false; $('btnSubmit').textContent = 'Confirm registration'; });
+  });
+
+  function showDone(r) {
+    $('form').hidden = true;
+    $('done').hidden = false;
+    $('ticket').innerHTML =
+      `<div><span>Reference</span><b class="ref">${esc(r.ref)}</b></div>
+       <div><span>Name</span><b>${esc(r.name)}</b></div>
+       <div><span>ITS ID</span><b>${esc(r.its)}</b></div>
+       <div><span>Visit date</span><b>${esc(r.label)}</b></div>
+       <div><span>Time slot</span><b>${esc(r.slot)}</b></div>
+       <div><span>WhatsApp</span><b>${esc(r.whatsapp)}</b></div>
+       ${r.reporting ? `<div><span>Reporting</span><b>${esc(r.reporting)}</b></div>` : ''}
+       ${r.inDatabase ? '' : '<div><span>Note</span><b>Will be verified by the office</b></div>'}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  $('btnAnother').addEventListener('click', () => {
+    $('done').hidden = true;
+    $('its').value = ''; $('mobile').value = '';
+    S.its = ''; resetPerson();
+    $('loading').hidden = false; $('form').hidden = true;
+    load().then(() => $('its').focus());
+  });
+
+  $('showMail').addEventListener('click', () => { $('mail').hidden = !$('mail').hidden; });
+  $('copyMail').addEventListener('click', () => {
+    const t = 'dignityworks53@gmail.com';
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+      .then(() => { $('copyMail').textContent = 'Copied'; })
+      .catch(() => { $('copyMail').textContent = t; });
+  });
+
+  load();
+</script>
+</body>
+</html>

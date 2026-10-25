@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Office — Har Ghar Jamea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1F5C58;
+    --teal-d: #143E3B;
+    --teal-l: #E4EFEC;
+    --gold: #B98A32;
+    --gold-l: #F4E7C8;
+    --ivory: #FBF7EE;
+    --parchment: #F3EADA;
+    --ink: #2A2A26;
+    --muted: #6E6A5E;
+    --line: #E3D7BF;
+    --green: #2E7D4F;
+    --green-l: #E3F2E8;
+    --red: #A8322D;
+    --red-l: #F8E4E2;
+    --amber: #A86B12;
+    --amber-l: #FBEFD9;
+    --radius: 14px;
+    --shadow: 0 10px 30px -14px rgba(20, 62, 59, .35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: 'Mulish', system-ui, sans-serif;
+    color: var(--ink);
+    background-color: var(--ivory);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23B98A32' stroke-opacity='.10' stroke-width='1'%3E%3Crect x='22' y='22' width='28' height='28'/%3E%3Crect x='22' y='22' width='28' height='28' transform='rotate(45 36 36)'/%3E%3Ccircle cx='36' cy='36' r='6'/%3E%3Cpath d='M0 0L22 22M72 0L50 22M0 72L22 50M72 72L50 50'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  h1, h2, h3 { font-family: 'Amiri', Georgia, serif; font-weight: 700; color: var(--teal-d); margin: 0; line-height: 1.2; }
+  a { color: var(--teal); }
+  button { font-family: inherit; }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 0 16px 40px; }
+
+  /* Header */
+  .hero { text-align: center; padding: 34px 8px 22px; position: relative; }
+  .hero .star { width: 46px; height: 46px; display: block; margin: 0 auto 12px; }
+  .hero h1 { font-size: clamp(30px, 6vw, 44px); }
+  .hero .sub { margin: 6px 0 0; color: var(--gold); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12.5px; }
+  .hero .sub2 { margin: 4px 0 0; color: var(--muted); font-weight: 600; font-size: 14px; letter-spacing: .02em; }
+  .crest { display: block; width: 100%; height: 22px; margin-top: 18px; }
+
+  .hero-img { width: 100%; border-radius: var(--radius); display: block; margin: 0 0 18px; box-shadow: var(--shadow); }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    position: relative;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-l);
+    border-radius: 10px; pointer-events: none;
+  }
+  @media (max-width: 520px) { .card { padding: 18px; } }
+
+  .intro { margin: 0 0 14px; color: var(--muted); }
+  .notice { background: var(--gold-l); border-left: 4px solid var(--gold); padding: 10px 14px; border-radius: 8px; margin: 0 0 18px; font-weight: 600; }
+
+  .step { padding: 18px 0 4px; border-top: 1px dashed var(--line); margin-top: 16px; }
+  .step:first-of-type { border-top: 0; margin-top: 0; padding-top: 4px; }
+  .step-title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .step-title .n {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--teal); color: #fff;
+    display: grid; place-items: center; font-weight: 800; font-size: 14px; flex: none;
+  }
+  .step-title h3 { font-size: 22px; }
+
+  label { display: block; font-weight: 700; font-size: 14px; margin: 0 0 6px; }
+  input, select, textarea {
+    width: 100%; font: inherit; font-size: 16px; padding: 12px 14px;
+    border: 1.5px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink);
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-l); }
+  input.its { letter-spacing: .18em; font-weight: 700; font-size: 20px; }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+  .row > .btn { flex: none; }
+  .field { margin-bottom: 12px; }
+  .wa { display: flex; gap: 8px; }
+  .wa .cc { flex: 0 0 84px; text-align: center; font-weight: 700; }
+  .wa input:not(.cc) { flex: 1; min-width: 0; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .btn {
+    border: 0; border-radius: 10px; padding: 12px 18px; font-weight: 800; font-size: 15px;
+    cursor: pointer; background: var(--teal); color: #fff; transition: transform .05s, background .15s;
+  }
+  .btn:hover { background: var(--teal-d); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn.gold { background: var(--gold); }
+  .btn.gold:hover { background: #9C7428; }
+  .btn.ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
+  .btn.ghost:hover { background: var(--teal-l); }
+  .btn.red { background: var(--red); }
+  .btn.red:hover { background: #8A2924; }
+  .btn.green { background: var(--green); }
+  .btn.sm { padding: 7px 12px; font-size: 13px; border-radius: 8px; }
+  .btn.block { width: 100%; }
+
+  .msg { margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-weight: 600; font-size: 14.5px; }
+  .msg.err { background: var(--red-l); color: var(--red); }
+  .msg.ok { background: var(--green-l); color: var(--green); }
+  .msg.warn { background: var(--amber-l); color: var(--amber); }
+  .msg:empty { display: none; }
+
+  .person {
+    display: flex; gap: 14px; align-items: center; margin-top: 12px;
+    background: var(--teal-l); border-radius: 12px; padding: 12px 14px;
+  }
+  .person .ava {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--teal); color: #fff;
+    display: grid; place-items: center; font-family: 'Amiri', serif; font-size: 22px; flex: none;
+  }
+  .person b { display: block; font-size: 17px; }
+  .person span { color: var(--muted); font-size: 14px; }
+
+  /* Date cards */
+  .days { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .day {
+    text-align: left; border: 1.5px solid var(--line); background: #fff; border-radius: 12px;
+    padding: 12px 14px; cursor: pointer; position: relative; transition: border-color .15s, box-shadow .15s;
+    color: var(--ink);
+  }
+  .day:hover:not(:disabled) { border-color: var(--teal); }
+  .day .wd { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  .day .dt { font-family: 'Amiri', serif; font-size: 26px; font-weight: 700; color: var(--teal-d); line-height: 1.1; }
+  .day .st { font-size: 13px; font-weight: 700; margin-top: 4px; color: var(--green); }
+  .day.sel { border-color: var(--teal); background: var(--teal-l); box-shadow: 0 0 0 3px var(--teal-l); }
+  .day.sel::after {
+    content: "✓"; position: absolute; top: 10px; right: 12px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--teal); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 800;
+  }
+  .day:disabled { cursor: not-allowed; background: #FAF8F3; }
+  .day:disabled .dt { color: #A9A497; }
+  .day.full .st, .day.closed .st { color: var(--red); }
+  .day.novisit { border-style: dashed; }
+  .day.novisit .st { color: var(--muted); }
+  .day.low .st { color: var(--amber); }
+  .slots { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .day.slot .dt { font-family: 'Mulish', sans-serif; font-size: 19px; font-weight: 800; }
+
+  /* Done */
+  .done { text-align: center; padding: 10px 0; }
+  .done .tick {
+    width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; margin: 0 auto 14px;
+    display: grid; place-items: center; font-size: 32px;
+  }
+  .done h2 { font-size: 30px; }
+  .ticket {
+    margin: 18px auto; max-width: 420px; text-align: left; border: 1.5px dashed var(--gold);
+    border-radius: 12px; padding: 14px 18px; background: var(--ivory);
+  }
+  .ticket div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .ticket div:last-child { border-bottom: 0; }
+  .ticket span { color: var(--muted); font-size: 14px; }
+  .ticket b { text-align: right; }
+  .ref { font-family: ui-monospace, Menlo, monospace; letter-spacing: .08em; color: var(--teal-d); }
+
+  .loading { text-align: center; padding: 40px 0; color: var(--muted); }
+  .spin {
+    width: 28px; height: 28px; border: 3px solid var(--teal-l); border-top-color: var(--teal);
+    border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Footer */
+  .foot { text-align: center; margin-top: 26px; font-size: 13px; color: var(--muted); }
+  .foot button { background: none; border: 0; color: var(--teal); font-weight: 700; cursor: pointer; font-size: 13px; padding: 0; }
+  .foot .mail { display: inline-block; margin-left: 6px; }
+
+  [hidden] { display: none !important; }
+</style>
+
+  <style>
+    .page.wide { max-width: 1120px; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding: 22px 0 14px; border-bottom: 1px solid var(--line); margin-bottom: 16px;
+    }
+    .topbar h1 { font-size: 28px; }
+    .topbar .who { color: var(--muted); font-size: 14px; }
+    .topbar .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: .03em; white-space: nowrap; }
+    .pill.open { background: var(--green-l); color: var(--green); }
+    .pill.closed { background: var(--red-l); color: var(--red); }
+    .pill.novisit { background: #ECE8DF; color: var(--muted); }
+    .pill.full { background: var(--amber-l); color: var(--amber); }
+    .pill.deleted { background: var(--red-l); color: var(--red); }
+    .pill.office { background: var(--gold-l); color: #7A5A1E; }
+
+    .tabs { display: flex; gap: 4px; margin-bottom: 16px; overflow-x: auto; }
+    .tab {
+      border: 0; background: transparent; padding: 10px 16px; border-radius: 10px; font-weight: 800;
+      color: var(--muted); cursor: pointer; font-size: 15px; white-space: nowrap;
+    }
+    .tab.on { background: var(--teal); color: #fff; }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .stat { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+    .stat .k { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+    .stat .v { font-family: 'Amiri', serif; font-size: 34px; font-weight: 700; color: var(--teal-d); line-height: 1.1; }
+    .stat .s { font-size: 13px; color: var(--muted); }
+
+    .panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    .panel h3 { font-size: 21px; margin-bottom: 10px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+
+    .daylist .item {
+      display: grid; grid-template-columns: 120px 1fr auto; gap: 12px; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid var(--line);
+    }
+    .daylist .item:last-child { border-bottom: 0; }
+    .daylist .d b { display: block; font-family: 'Amiri', serif; font-size: 20px; color: var(--teal-d); }
+    .daylist .d span { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .bar { height: 10px; background: var(--parchment); border-radius: 99px; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: var(--teal); border-radius: 99px; }
+    .bar i.hot { background: var(--gold); }
+    .bar i.over { background: var(--red); }
+    .count { font-weight: 800; font-size: 14px; text-align: right; }
+    .daylist .item .slotlines { display: grid; gap: 6px; }
+    .slotline { display: grid; grid-template-columns: 120px 1fr 64px; gap: 10px; align-items: center; font-size: 13px; }
+    .slotline .t { font-weight: 700; color: var(--muted); white-space: nowrap; }
+    @media (max-width: 600px) { .slotline { grid-template-columns: 1fr 64px; } .slotline .bar { grid-column: 1 / -1; } }
+    table.sched tr.first td { border-top: 2px solid var(--line); }
+    table.sched td.slotname { font-weight: 700; white-space: nowrap; }
+    @media (max-width: 600px) {
+      .daylist .item { grid-template-columns: 1fr auto; }
+      .daylist .item .bar { grid-column: 1 / -1; order: 3; }
+    }
+
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+    .toolbar select, .toolbar input[type=search] { width: auto; min-width: 200px; flex: 1; padding: 9px 12px; font-size: 15px; }
+    .toolbar .chk { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; margin: 0; white-space: nowrap; }
+    .toolbar .chk input { width: auto; }
+    .summary { font-size: 14px; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+
+    .tablewrap { overflow-x: auto; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; background: var(--parchment); color: var(--teal-d); font-weight: 800; padding: 10px 12px; white-space: nowrap; font-size: 13px; }
+    td { padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+    tr.del td { color: #9A958A; }
+    tr.del td.nm { text-decoration: line-through; }
+    td .why { display: block; font-size: 12px; color: var(--red); text-decoration: none; margin-top: 2px; }
+    td.mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+    .empty { padding: 30px; text-align: center; color: var(--muted); }
+
+    table.sched input, table.sched select { padding: 7px 10px; font-size: 14px; }
+    table.sched input.num { width: 80px; }
+    table.sched tr.past td { opacity: .55; }
+
+    .modal-bg { position: fixed; inset: 0; background: rgba(20, 30, 28, .5); display: grid; place-items: center; padding: 16px; z-index: 50; }
+    .modal { background: #fff; border-radius: 14px; max-width: 520px; width: 100%; padding: 22px; max-height: 92vh; overflow: auto; box-shadow: var(--shadow); }
+    .modal h3 { font-size: 24px; margin-bottom: 12px; }
+    .modal .foot-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--teal-d); color: #fff;
+      padding: 10px 18px; border-radius: 10px; font-weight: 700; z-index: 60; box-shadow: var(--shadow); max-width: 90vw;
+    }
+    .toast.err { background: var(--red); }
+
+    .login { max-width: 400px; margin: 60px auto 0; }
+    .linkbox { display: flex; gap: 8px; }
+    .linkbox input { font-size: 13px; }
+
+    #printArea { display: none; }
+    @media print {
+      body { background: #fff; }
+      body > *:not(#printArea) { display: none !important; }
+      #printArea { display: block; font-family: 'Mulish', sans-serif; color: #000; }
+      #printArea h2 { font-family: 'Amiri', serif; font-size: 22px; margin: 0; }
+      #printArea p { margin: 2px 0 10px; font-size: 12px; }
+      #printArea table { font-size: 11.5px; }
+      #printArea th { background: #eee; color: #000; padding: 6px; }
+      #printArea td { padding: 6px; border: 1px solid #bbb; }
+      #printArea tr { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="page" id="loginView">
+  <div class="card login">
+    <h2 style="font-size:28px">Office portal</h2>
+    <p class="intro" id="loginSub">Har Ghar Jamea · Rabvat Jibla visit registrations</p>
+    <div class="field">
+      <label for="pass">Passcode</label>
+      <input id="pass" type="password" autocomplete="current-password">
+    </div>
+    <div class="field">
+      <label for="user">Your name</label>
+      <input id="user" maxlength="40" placeholder="Recorded against adds and deletes">
+    </div>
+    <button class="btn block" id="btnLogin">Open dashboard</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<!-- App -->
+<div class="page wide" id="appView" hidden>
+  <div class="topbar">
+    <div>
+      <h1 id="appTitle">Rabvat Jibla visits</h1>
+      <div class="who"><span id="openPill"></span> &nbsp;Signed in as <b id="whoName"></b></div>
+    </div>
+    <div class="actions">
+      <button class="btn ghost sm" id="btnRefresh">Refresh</button>
+      <button class="btn ghost sm" id="btnLogout">Log out</button>
+    </div>
+  </div>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-tab="overview">Overview</button>
+    <button class="tab" data-tab="regs">Registrations</button>
+    <button class="tab" data-tab="schedule">Schedule</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
+
+  <!-- Overview -->
+  <section id="tab-overview">
+    <div class="stats" id="stats"></div>
+    <div class="panel">
+      <h3>Upcoming visits</h3>
+      <div class="daylist" id="upcomingList"></div>
+    </div>
+  </section>
+
+  <!-- Registrations -->
+  <section id="tab-regs" hidden>
+    <div class="toolbar">
+      <select id="fDate"></select>
+      <select id="fSlot" style="flex:0 1 220px"></select>
+      <input type="search" id="fSearch" placeholder="Search name, ITS, ref, jamaat, WhatsApp">
+      <label class="chk"><input type="checkbox" id="fDeleted"> Show deleted</label>
+    </div>
+    <div class="toolbar">
+      <button class="btn sm" id="btnAdd">+ Add registration</button>
+      <button class="btn ghost sm" id="btnCsv">Download CSV</button>
+      <button class="btn ghost sm" id="btnPrint">Print list</button>
+    </div>
+    <div class="summary" id="regSummary"></div>
+    <div class="tablewrap"><table id="regTable"></table></div>
+  </section>
+
+  <!-- Schedule -->
+  <section id="tab-schedule" hidden>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Open registrations</h3>
+        <p class="hint" id="windowNow" style="margin-top:0"></p>
+        <div class="row">
+          <div class="field"><label for="wStart">Start date</label><input type="date" id="wStart"></div>
+          <div class="field"><label for="wDays">Number of days</label><input type="number" id="wDays" min="1" max="60" value="30"></div>
+        </div>
+        <p class="hint" id="wPreview" style="margin-top:0"></p>
+        <div class="row">
+          <button class="btn" id="btnOpenWindow">Open registrations</button>
+          <button class="btn ghost" id="btnCloseWindow">Close registrations</button>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <h3>Seats per day</h3>
+          <div class="row">
+            <div class="field"><label for="defLimit">Default seats per slot</label><input type="number" id="defLimit" min="1" max="1000"></div>
+            <button class="btn" id="btnDefLimit" style="align-self:end;margin-bottom:12px">Save</button>
+          </div>
+          <label class="chk" style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="defApply" style="width:auto"> Also apply to all upcoming dates</label>
+          <p class="hint">To change a single slot, edit its seats in the table below.</p>
+        </div>
+        <div class="panel">
+          <h3>Add an extra date</h3>
+          <div class="row">
+            <input type="date" id="extraDate">
+            <button class="btn" id="btnExtra">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <label class="chk"><input type="checkbox" id="showPast"> Show past dates</label>
+      <span class="hint" style="margin:0">Mark weeks with other programmes as <b>No visit</b> and add a note — it shows on the public form.</span>
+    </div>
+    <div class="tablewrap"><table class="sched" id="schedTable"></table></div>
+  </section>
+
+  <!-- Settings -->
+  <section id="tab-settings" hidden>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Public form</h3>
+        <label class="chk" style="display:flex;gap:8px;align-items:center;margin-bottom:14px"><input type="checkbox" id="sOpen" style="width:auto"> Registrations open</label>
+        <div class="field"><label for="sNotice">Notice on the form (optional)</label><textarea id="sNotice" rows="3" maxlength="500"></textarea></div>
+        <div class="field"><label for="sReport">Reporting instructions (shown on confirmation)</label><input id="sReport" maxlength="200" placeholder="e.g. Report at 9:00 AM at the main gate"></div>
+        <div class="field"><label for="sCutoff">Online booking closes the day before at</label><input type="time" id="sCutoff"><div class="hint">Leave blank to keep booking open until the visit day. The office can still add people after this.</div></div>
+        <button class="btn" id="btnSaveSettings">Save settings</button>
+      </div>
+      <div class="panel">
+        <h3>Links</h3>
+        <div class="field"><label>Public registration form</label><div class="linkbox"><input id="urlPublic" readonly><button class="btn sm" data-copy="urlPublic">Copy</button></div></div>
+        <div class="field"><label>Office portal</label><div class="linkbox"><input id="urlOffice" readonly><button class="btn sm" data-copy="urlOffice">Copy</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">Designed &amp; developed by DignityWorks</footer>
+</div>
+
+<div id="modalRoot"></div>
+<div id="printArea"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  let D = null, PASS = '', USER = '', busy = false;
+
+  const API_URL = "https://script.google.com/macros/s/AKfycbw9C3CdmubKoIrEfUMRnGI1AOvPH5DlSyxnEiF0d4NA87fjplsHWRq4cyzjspFpJIZHrw/exec";
+  // Talks to the Apps Script web app with a plain, cookie-free request,
+  // so it works no matter how many Google accounts the browser has.
+  function call(fn, ...args) {
+    return fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ fn: fn, args: args }),
+      redirect: 'follow',
+      credentials: 'omit'
+    }).then(r => r.text()).then(text => {
+      let r;
+      try { r = JSON.parse(text); } catch (e) { throw new Error('Could not reach the server. Please check your internet and try again.'); }
+      if (!r.ok) throw new Error(r.error || 'Something went wrong. Please try again.');
+      return r.data;
+    }, () => { throw new Error('Could not reach the server. Please check your internet and try again.'); });
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+  function toast(text, err) {
+    const t = document.createElement('div');
+    t.className = 'toast' + (err ? ' err' : '');
+    t.textContent = text;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), err ? 5000 : 2600);
+  }
+  function store(k, v) { try { v == null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch (e) {} }
+  function recall(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
+
+  /* ---------- server calls that return fresh data ---------- */
+  function act(fn, args, okText) {
+    if (busy) return Promise.resolve();
+    busy = true;
+    document.body.style.cursor = 'progress';
+    return call(fn, PASS, ...args).then(data => {
+      D = data; renderAll();
+      if (okText) toast(okText);
+      return true;
+    }).catch(err => { toast(err.message, true); return false; })
+      .finally(() => { busy = false; document.body.style.cursor = ''; });
+  }
+
+  /* ---------- login ---------- */
+  function login() {
+    PASS = $('pass').value;
+    USER = $('user').value.trim();
+    if (!USER) { $('loginMsg').className = 'msg err'; $('loginMsg').textContent = 'Please enter your name.'; return; }
+    $('btnLogin').disabled = true; $('btnLogin').textContent = 'Opening…';
+    call('adminLoad', PASS).then(data => {
+      D = data;
+      store('rj_pass', PASS); store('rj_user', USER);
+      $('loginView').hidden = true; $('appView').hidden = false;
+      $('whoName').textContent = USER;
+      initDefaults();
+      renderAll();
+    }).catch(err => { $('loginMsg').className = 'msg err'; $('loginMsg').textContent = err.message; })
+      .finally(() => { $('btnLogin').disabled = false; $('btnLogin').textContent = 'Open dashboard'; });
+  }
+  $('btnLogin').addEventListener('click', login);
+  $('pass').addEventListener('keydown', e => { if (e.key === 'Enter') $('user').focus(); });
+  $('user').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+  $('btnLogout').addEventListener('click', () => { store('rj_pass', null); location.reload(); });
+  $('btnRefresh').addEventListener('click', () => act('adminLoad', [], 'Refreshed'));
+
+  // Note: adminLoad takes only the passcode; act() passes PASS first.
+
+  /* ---------- tabs ---------- */
+  $('tabs').addEventListener('click', e => {
+    const b = e.target.closest('.tab'); if (!b) return;
+    showTab(b.dataset.tab);
+  });
+  function showTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === name));
+    ['overview', 'regs', 'schedule', 'settings'].forEach(n => $('tab-' + n).hidden = n !== name);
+  }
+
+  /* ---------- helpers ---------- */
+  function upcoming() { return D.schedule.filter(d => !d.past); }
+  function inWindow(d) {
+    const s = D.settings;
+    return (!s.window_start || d.date >= s.window_start) && (!s.window_end || d.date <= s.window_end);
+  }
+  function dayStatePill(d) {
+    if (d.status === 'No visit') return '<span class="pill novisit">No visit</span>';
+    if (d.status === 'Closed') return '<span class="pill closed">Closed</span>';
+    if (d.booked >= d.limit) return '<span class="pill full">Full</span>';
+    if (d.cutoffPassed) return '<span class="pill closed">Online closed</span>';
+    return '<span class="pill open">Open</span>';
+  }
+  function fmtLong(ymd) {
+    const d = D.schedule.find(x => x.date === ymd);
+    if (d) return d.label;
+    const [y, m, dd] = ymd.split('-').map(Number);
+    return new Date(y, m - 1, dd).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function renderAll() {
+    const s = D.settings;
+    $('appTitle').textContent = s.title;
+    $('openPill').innerHTML = s.registrations_open ? '<span class="pill open">Registrations open</span>' : '<span class="pill closed">Registrations closed</span>';
+    renderOverview(); renderDateFilter(); renderRegs(); renderSchedule(); renderSettings();
+  }
+
+  /* ---------- overview ---------- */
+  function datesOf(rows) {
+    const map = new Map();
+    rows.forEach(d => { if (!map.has(d.date)) map.set(d.date, []); map.get(d.date).push(d); });
+    return [...map.entries()].map(([date, slots]) => ({ date, slots, first: slots[0] }));
+  }
+  function renderOverview() {
+    const up = upcoming();
+    const active = D.registrations.filter(r => r.status === 'Registered');
+    const upActive = active.filter(r => r.date >= D.today);
+    const visitRows = up.filter(d => d.status !== 'No visit' && inWindow(d));
+    const visitDays = datesOf(visitRows);
+    const seatsLeft = visitRows.filter(d => d.status === 'Open').reduce((a, d) => a + Math.max(0, d.limit - d.booked), 0);
+    const next = visitDays[0];
+    const nextBooked = next ? next.slots.reduce((a, x) => a + x.booked, 0) : 0;
+    const nextLimit = next ? next.slots.reduce((a, x) => a + x.limit, 0) : 0;
+    $('stats').innerHTML = [
+      ['Next visit', next ? next.first.short : '—', next ? nextBooked + ' of ' + nextLimit + ' registered' : 'No dates open'],
+      ['Upcoming registrations', upActive.length, 'across ' + visitDays.length + ' visit days'],
+      ['Seats left', seatsLeft, 'in the open period'],
+      ['Total registrations', active.length, 'all dates, excluding deleted']
+    ].map(([k, v, sub]) => `<div class="stat"><div class="k">${k}</div><div class="v">${esc(v)}</div><div class="s">${esc(sub)}</div></div>`).join('');
+
+    const groups = datesOf(up);
+    $('upcomingList').innerHTML = groups.length ? groups.map(g => {
+      const d = g.first;
+      const allOff = g.slots.every(x => x.status === 'No visit');
+      const lines = allOff
+        ? `<span class="hint" style="margin:0">${esc(g.slots.map(x => x.note).find(Boolean) || 'No visit this day')}</span>`
+        : '<div class="slotlines">' + g.slots.map(x => {
+            const pct = x.limit ? Math.min(100, Math.round(x.booked / x.limit * 100)) : 0;
+            const cls = x.booked > x.limit ? 'over' : pct >= 80 ? 'hot' : '';
+            return `<div class="slotline"><span class="t">${esc(x.slot)}</span>` +
+              (x.status === 'Open' ? `<div class="bar"><i class="${cls}" style="width:${pct}%"></i></div>` : `<div>${dayStatePill(x)}</div>`) +
+              `<span class="count">${x.booked} / ${x.limit}</span></div>`;
+          }).join('') + '</div>';
+      return `<div class="item">
+        <div class="d"><span>${esc(d.weekday)}</span><b>${esc(d.short.replace(/^\w+ /, ''))}</b></div>
+        <div>${lines}</div>
+        <div><button class="btn ghost sm" data-view="${d.date}">View list</button></div>
+      </div>`;
+    }).join('') : '<div class="empty">No upcoming dates. Open registrations from the Schedule tab.</div>';
+  }
+  $('upcomingList').addEventListener('click', e => {
+    const b = e.target.closest('[data-view]'); if (!b) return;
+    $('fDate').value = b.dataset.view; $('fSlot').value = ''; renderRegs(); showTab('regs');
+  });
+
+  /* ---------- registrations ---------- */
+  function renderDateFilter() {
+    const cur = $('fDate').value;
+    const counts = {};
+    D.registrations.forEach(r => { if (r.status === 'Registered') counts[r.date] = (counts[r.date] || 0) + 1; });
+    const dates = Array.from(new Set(D.schedule.map(d => d.date).concat(D.registrations.map(r => r.date)))).filter(Boolean).sort();
+    const opt = (v, t) => `<option value="${v}">${esc(t)}</option>`;
+    const upDates = dates.filter(d => d >= D.today), pastDates = dates.filter(d => d < D.today).reverse();
+    $('fDate').innerHTML =
+      opt('all', 'All dates') + opt('upcoming', 'All upcoming') +
+      (upDates.length ? '<optgroup label="Upcoming">' + upDates.map(d => opt(d, fmtLong(d) + ' — ' + (counts[d] || 0))).join('') + '</optgroup>' : '') +
+      (pastDates.length ? '<optgroup label="Past">' + pastDates.map(d => opt(d, fmtLong(d) + ' — ' + (counts[d] || 0))).join('') + '</optgroup>' : '');
+    $('fDate').value = cur && [...$('fDate').options].some(o => o.value === cur) ? cur : (upDates[0] || 'all');
+    const curSlot = $('fSlot').value;
+    const allSlots = Array.from(new Set(D.settings.slots.concat(D.schedule.map(d => d.slot)).concat(D.registrations.map(r => r.slot)))).filter(Boolean);
+    $('fSlot').innerHTML = '<option value="">All slots</option>' + allSlots.map(sl => `<option value="${esc(sl)}">${esc(sl)}</option>`).join('');
+    $('fSlot').value = allSlots.includes(curSlot) ? curSlot : '';
+  }
+
+  function filteredRegs() {
+    const f = $('fDate').value, sl = $('fSlot').value, q = $('fSearch').value.trim().toLowerCase(), showDel = $('fDeleted').checked;
+    return D.registrations.filter(r => {
+      if (!showDel && r.status !== 'Registered') return false;
+      if (f === 'upcoming' && r.date < D.today) return false;
+      if (f !== 'all' && f !== 'upcoming' && r.date !== f) return false;
+      if (sl && r.slot !== sl) return false;
+      if (q && ![r.name, r.its, r.ref, r.jamaat, r.mobile].join(' ').toLowerCase().includes(q)) return false;
+      return true;
+    }).sort((a, b) => a.date !== b.date ? a.date.localeCompare(b.date) : a.slot !== b.slot ? a.slot.localeCompare(b.slot) : a.name.localeCompare(b.name));
+  }
+
+  function renderRegs() {
+    const list = filteredRegs();
+    const f = $('fDate').value;
+    const active = list.filter(r => r.status === 'Registered').length;
+    const del = list.length - active;
+    let sum = active + ' registered' + (del ? ' · ' + del + ' deleted shown' : '');
+    const sl = $('fSlot').value;
+    const dayRows = D.schedule.filter(d => d.date === f && (!sl || d.slot === sl));
+    if (dayRows.length) sum = fmtLong(f) + ' — ' + dayRows.map(d => `${d.slot}: ${d.booked}/${d.limit}${d.status !== 'Open' ? ' (' + d.status + ')' : ''}`).join(' · ') + (del ? ' · ' + del + ' deleted shown' : '');
+    $('regSummary').textContent = sum;
+
+    const single = f !== 'all' && f !== 'upcoming';
+    const oneSlot = !!sl;
+    if (!list.length) { $('regTable').innerHTML = '<tr><td class="empty">No registrations match.</td></tr>'; return; }
+    $('regTable').innerHTML =
+      `<thead><tr><th>#</th>${single ? '' : '<th>Date</th>'}${oneSlot ? '' : '<th>Slot</th>'}<th>Name</th><th>ITS ID</th><th>Jamaat</th><th>Age</th><th>WhatsApp</th><th>Ref</th><th>Registered on</th><th></th></tr></thead><tbody>` +
+      list.map((r, i) => {
+        const isDel = r.status !== 'Registered';
+        const flags = (r.inDb === 'No' ? ' <span class="pill full" title="ITS not found in records — please verify">Check ITS</span>' : '') +
+          (r.source === 'Office' ? ' <span class="pill office" title="Added by ' + esc(r.by) + '">Office</span>' : '');
+        return `<tr class="${isDel ? 'del' : ''}">
+          <td>${i + 1}</td>
+          ${single ? '' : `<td style="white-space:nowrap">${esc(r.short)}</td>`}
+          ${oneSlot ? '' : `<td style="white-space:nowrap">${esc(r.slot)}</td>`}
+          <td class="nm">${esc(r.name)}${flags}${isDel ? `<span class="why">Deleted by ${esc(r.delBy)} · ${esc(r.delAt)} — ${esc(r.delReason)}</span>` : ''}${r.notes && !isDel ? `<span class="hint" style="display:block;margin:2px 0 0">${esc(r.notes)}</span>` : ''}</td>
+          <td class="mono">${esc(r.its)}</td>
+          <td>${esc(r.jamaat)}</td>
+          <td>${esc(r.age)}</td>
+          <td class="mono" style="white-space:nowrap">${r.mobile ? `<a href="https://wa.me/${esc(r.mobile.replace(/\D/g, ''))}" target="_blank" rel="noopener">${esc(r.mobile)}</a>` : ''}</td>
+          <td class="mono">${esc(r.ref)}</td>
+          <td style="white-space:nowrap;font-size:12px;color:var(--muted)">${esc(r.ts)}</td>
+          <td>${isDel ? `<button class="btn ghost sm" data-restore="${r.ref}">Restore</button>` : `<button class="btn red sm" data-del="${r.ref}">Delete</button>`}</td>
+        </tr>`;
+      }).join('') + '</tbody>';
+  }
+  ['fDate', 'fSlot', 'fDeleted'].forEach(id => $(id).addEventListener('change', renderRegs));
+  $('fSearch').addEventListener('input', renderRegs);
+
+  $('regTable').addEventListener('click', e => {
+    const d = e.target.closest('[data-del]'), r = e.target.closest('[data-restore]');
+    if (d) openDelete(d.dataset.del);
+    if (r) {
+      const reg = D.registrations.find(x => x.ref === r.dataset.restore);
+      confirmModal('Restore registration?', `${esc(reg.name)} will be put back on ${esc(fmtLong(reg.date))}, ${esc(reg.slot)}.`, 'Restore', 'green',
+        () => act('adminRestore', [reg.ref, USER], 'Restored'));
+    }
+  });
+
+  /* ---------- modals ---------- */
+  function modal(html) {
+    $('modalRoot').innerHTML = `<div class="modal-bg"><div class="modal">${html}</div></div>`;
+    const bg = $('modalRoot').firstChild;
+    bg.addEventListener('click', e => { if (e.target === bg || e.target.closest('[data-close]')) closeModal(); });
+    return bg;
+  }
+  function closeModal() { $('modalRoot').innerHTML = ''; }
+  function confirmModal(title, body, okText, okClass, onOk) {
+    const m = modal(`<h3>${title}</h3><p>${body}</p><div class="foot-btns"><button class="btn ghost" data-close>Cancel</button><button class="btn ${okClass}" id="mOk">${okText}</button></div>`);
+    m.querySelector('#mOk').addEventListener('click', () => { closeModal(); onOk(); });
+  }
+
+  function openDelete(ref) {
+    const r = D.registrations.find(x => x.ref === ref);
+    const m = modal(`<h3>Delete registration</h3>
+      <p><b>${esc(r.name)}</b> (${esc(r.its)})<br>${esc(fmtLong(r.date))}, ${esc(r.slot)} · Ref <span class="mono">${esc(r.ref)}</span></p>
+      <p class="hint">The seat will be released. Deleted entries can be viewed with “Show deleted” and restored if needed.</p>
+      <div class="field"><label for="mReason">Reason for deleting</label><textarea id="mReason" rows="3" maxlength="300" placeholder="e.g. Requested cancellation by phone"></textarea></div>
+      <div class="msg" id="mMsg"></div>
+      <div class="foot-btns"><button class="btn ghost" data-close>Cancel</button><button class="btn red" id="mOk">Delete</button></div>`);
+    m.querySelector('#mReason').focus();
+    m.querySelector('#mOk').addEventListener('click', () => {
+      const reason = m.querySelector('#mReason').value.trim();
+      if (reason.length < 3) { m.querySelector('#mMsg').className = 'msg err'; m.querySelector('#mMsg').textContent = 'Please give a reason.'; return; }
+      closeModal();
+      act('adminDelete', [ref, reason, USER], 'Deleted — seat released');
+    });
+  }
+
+  $('btnAdd').addEventListener('click', openAdd);
+  function openAdd() {
+    const f = $('fDate').value;
+    const rowsOk = upcoming().filter(d => d.status !== 'No visit');
+    const dates = datesOf(rowsOk).map(g => g.first);
+    if (!dates.length) { toast('No upcoming visit dates. Open registrations first.', true); return; }
+    const m = modal(`<h3>Add registration</h3>
+      <div class="field"><label for="aDate">Visit date</label><select id="aDate">${dates.map(d =>
+        `<option value="${d.date}" ${d.date === f ? 'selected' : ''}>${esc(d.label)}</option>`).join('')}</select></div>
+      <div class="field"><label for="aSlot">Time slot</label><select id="aSlot"></select></div>
+      <div class="field"><label for="aIts">ITS ID</label><input id="aIts" class="its" inputmode="numeric" maxlength="8"></div>
+      <div id="aPerson"></div>
+      <div class="field" id="aNameWrap" hidden><label for="aName">Full name</label><input id="aName" maxlength="120"></div>
+      <div class="field"><label for="aMobile">WhatsApp number</label><div class="wa"><input id="aCc" class="cc" inputmode="tel" maxlength="5" value="${esc(D.settings.country_code || '+91')}"><input id="aMobile" inputmode="numeric" maxlength="15" placeholder="Optional for office entries"></div></div>
+      <div class="field"><label for="aNotes">Notes (optional)</label><input id="aNotes" maxlength="300"></div>
+      <label class="chk" style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="aForce" style="width:auto"> Override (day full, already booked another date, or not eligible)</label>
+      <div class="msg" id="aMsg"></div>
+      <div class="foot-btns"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="mOk">Add</button></div>`);
+    const its = m.querySelector('#aIts'), msg = m.querySelector('#aMsg');
+    const fillSlots = () => {
+      const date = m.querySelector('#aDate').value, want = $('fSlot').value;
+      m.querySelector('#aSlot').innerHTML = rowsOk.filter(x => x.date === date).map(x =>
+        `<option value="${esc(x.slot)}" ${x.slot === want ? 'selected' : ''}>${esc(x.slot)} — ${x.booked}/${x.limit}${x.status === 'Closed' ? ' (closed)' : x.booked >= x.limit ? ' (full)' : ''}</option>`).join('');
+    };
+    fillSlots();
+    m.querySelector('#aDate').addEventListener('change', fillSlots);
+    its.focus();
+    its.addEventListener('input', () => {
+      its.value = its.value.replace(/\D/g, '').slice(0, 8);
+      m.querySelector('#aPerson').innerHTML = ''; m.querySelector('#aNameWrap').hidden = true; msg.textContent = ''; msg.className = 'msg';
+      if (its.value.length !== 8) return;
+      call('adminLookup', PASS, its.value).then(r => {
+        if (!r.ok) { msg.className = 'msg err'; msg.textContent = r.error; return; }
+        if (r.found) {
+          m.querySelector('#aPerson').innerHTML = `<div class="person" style="margin:0 0 12px"><div class="ava">${esc(r.name.charAt(0))}</div><div><b>${esc(r.name)}</b><span>${esc([r.jamaat, r.gender, r.age && 'Age ' + r.age].filter(Boolean).join(' · '))}</span></div></div>`;
+          if (r.mobile && !m.querySelector('#aMobile').value) {
+            const raw = String(r.mobile).trim(), mm = raw.match(/^\+(\d{1,4})[\s-]+(.+)$/);
+            if (mm) { m.querySelector('#aCc').value = '+' + mm[1]; m.querySelector('#aMobile').value = mm[2].replace(/\D/g, ''); }
+            else m.querySelector('#aMobile').value = raw.replace(/\D/g, '').slice(-10);
+          }
+          if (!r.eligible) { msg.className = 'msg warn'; msg.textContent = r.reason + ' Tick Override to add anyway.'; }
+        } else {
+          m.querySelector('#aNameWrap').hidden = false;
+          msg.className = 'msg warn'; msg.textContent = 'ITS not found in records — enter the name. It will be flagged "Check ITS".';
+        }
+        if (r.existing.length) { msg.className = 'msg warn'; msg.textContent = (msg.textContent ? msg.textContent + ' ' : '') + 'Already registered for: ' + r.existing.map(x => x.label).join(', ') + '.'; }
+      }).catch(err => { msg.className = 'msg err'; msg.textContent = err.message; });
+    });
+    m.querySelector('#mOk').addEventListener('click', () => {
+      const payload = {
+        date: m.querySelector('#aDate').value, slot: m.querySelector('#aSlot').value, its: its.value, name: m.querySelector('#aName').value,
+        cc: m.querySelector('#aCc').value, mobile: m.querySelector('#aMobile').value, notes: m.querySelector('#aNotes').value, force: m.querySelector('#aForce').checked
+      };
+      if (!/^\d{8}$/.test(payload.its)) { msg.className = 'msg err'; msg.textContent = 'ITS ID must be 8 digits.'; return; }
+      const btn = m.querySelector('#mOk'); btn.disabled = true; btn.textContent = 'Adding…';
+      call('adminAdd', PASS, payload, USER).then(data => {
+        D = data; closeModal(); renderAll(); toast('Added');
+      }).catch(err => { msg.className = 'msg err'; msg.textContent = err.message; btn.disabled = false; btn.textContent = 'Add'; });
+    });
+  }
+
+  /* ---------- exports ---------- */
+  function exportTitle() {
+    const f = $('fDate').value, sl = $('fSlot').value;
+    const base = f === 'all' ? 'All registrations' : f === 'upcoming' ? 'Upcoming registrations' : fmtLong(f);
+    return base + (sl ? ', ' + sl : '');
+  }
+  $('btnCsv').addEventListener('click', () => {
+    const list = filteredRegs();
+    if (!list.length) { toast('Nothing to export.', true); return; }
+    const head = ['Sr', 'Visit Date', 'Slot', 'Name', 'ITS ID', 'Jamaat', 'Age', 'Gender', 'WhatsApp', 'Ref', 'Source', 'Status', 'Delete Reason', 'Notes'];
+    const rows = list.map((r, i) => [i + 1, r.date, r.slot, r.name, r.its, r.jamaat, r.age, r.gender, r.mobile, r.ref, r.source, r.status, r.delReason, r.notes]);
+    const csv = [head].concat(rows).map(row => row.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' }));
+    a.download = 'Har-Ghar-Jamea-' + exportTitle().replace(/[^\w]+/g, '-') + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  $('btnPrint').addEventListener('click', () => {
+    const list = filteredRegs().filter(r => r.status === 'Registered');
+    if (!list.length) { toast('Nothing to print.', true); return; }
+    const single = !['all', 'upcoming'].includes($('fDate').value);
+    const oneSlot = !!$('fSlot').value;
+    $('printArea').innerHTML = `<h2>${esc(D.settings.title)} — ${esc(exportTitle())}</h2>
+      <p>${list.length} registered · printed ${new Date().toLocaleString('en-GB')}</p>
+      <table><thead><tr><th>Sr</th>${single ? '' : '<th>Date</th>'}${oneSlot ? '' : '<th>Slot</th>'}<th>Name</th><th>ITS ID</th><th>Jamaat</th><th>Age</th><th>WhatsApp</th><th style="width:22%">Remarks</th></tr></thead><tbody>` +
+      list.map((r, i) => `<tr><td>${i + 1}</td>${single ? '' : `<td>${esc(r.short)}</td>`}${oneSlot ? '' : `<td>${esc(r.slot)}</td>`}<td>${esc(r.name)}</td><td>${esc(r.its)}</td><td>${esc(r.jamaat)}</td><td>${esc(r.age)}</td><td>${esc(r.mobile)}</td><td></td></tr>`).join('') +
+      '</tbody></table>';
+    window.print();
+  });
+
+
+  /* ---------- schedule ---------- */
+  function initDefaults() {
+    const lastUp = D.schedule.length ? D.schedule[D.schedule.length - 1].date : '';
+    $('wStart').value = lastUp && lastUp >= D.today ? addDays(lastUp, 1) : D.today;
+    previewWindow();
+  }
+  function addDays(ymd, n) {
+    const [y, m, d] = ymd.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d + n));
+    return dt.toISOString().slice(0, 10);
+  }
+  function previewWindow() {
+    const s = $('wStart').value, n = Math.min(60, Math.max(1, parseInt($('wDays').value, 10) || 30));
+    if (!s) { $('wPreview').textContent = ''; return; }
+    const wanted = D.settings.visit_weekdays.split(',').map(x => x.trim().slice(0, 3).toLowerCase());
+    const names = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    const have = new Set(D.schedule.map(d => d.date));
+    let total = 0, fresh = 0;
+    for (let i = 0; i < n; i++) {
+      const d = addDays(s, i);
+      const [y, m, dd] = d.split('-').map(Number);
+      if (wanted.includes(names[new Date(Date.UTC(y, m - 1, dd)).getUTCDay()])) { total++; if (!have.has(d)) fresh++; }
+    }
+    const end = addDays(s, n - 1);
+    const ns = D.settings.slots.length;
+    $('wPreview').innerHTML = `${esc(fmtLong(s))} → ${esc(fmtLong(end))}: <b>${total}</b> visit days (${esc(D.settings.visit_weekdays)})` +
+      (fresh !== total ? `, ${fresh} new` : '') + ` × ${ns} slots (${esc(D.settings.slots.join(', '))}), ${D.settings.default_seat_limit} seats per slot.`;
+  }
+  $('wStart').addEventListener('change', previewWindow);
+  $('wDays').addEventListener('input', previewWindow);
+  $('btnOpenWindow').addEventListener('click', () => {
+    const s = $('wStart').value, n = $('wDays').value;
+    if (!s) { toast('Choose a start date.', true); return; }
+    act('adminOpenWindow', [s, n, USER], 'Registrations opened').then(previewWindow);
+  });
+  $('btnCloseWindow').addEventListener('click', () => confirmModal('Close registrations?',
+    'The public form will stop taking registrations. Existing registrations stay. The office can still add people.', 'Close registrations', 'red',
+    () => act('adminCloseWindow', [USER], 'Registrations closed')));
+  $('btnDefLimit').addEventListener('click', () =>
+    act('adminSetDefaultLimit', [$('defLimit').value, $('defApply').checked, USER], 'Seat limit saved'));
+  $('btnExtra').addEventListener('click', () => {
+    if (!$('extraDate').value) { toast('Choose a date.', true); return; }
+    act('adminAddDate', [$('extraDate').value, USER], 'Date added').then(ok => { if (ok) $('extraDate').value = ''; });
+  });
+  $('showPast').addEventListener('change', renderSchedule);
+
+  function renderSchedule() {
+    const s = D.settings;
+    $('windowNow').innerHTML = s.window_start
+      ? `Current period: <b>${esc(fmtLong(s.window_start))}</b> to <b>${esc(fmtLong(s.window_end))}</b> · ${s.registrations_open ? '<span class="pill open">Open</span>' : '<span class="pill closed">Closed</span>'}`
+      : 'No registration period opened yet.';
+    if (document.activeElement !== $('defLimit')) $('defLimit').value = s.default_seat_limit;
+
+    const rows = D.schedule.filter(d => $('showPast').checked || !d.past);
+    if (!rows.length) { $('schedTable').innerHTML = '<tr><td class="empty">No dates yet. Use “Open registrations” above.</td></tr>'; return; }
+    const groups = datesOf(rows);
+    $('schedTable').innerHTML = '<thead><tr><th>Date</th><th>Slot</th><th>Status</th><th>Seats</th><th>Registered</th><th>Note (shown on form for No visit)</th><th></th></tr></thead><tbody>' +
+      groups.map(g => {
+        const allOff = g.slots.every(x => x.status === 'No visit');
+        return g.slots.map((d, i) => `<tr class="${d.past ? 'past' : ''} ${i === 0 ? 'first' : ''}" data-date="${d.date}" data-slot="${esc(d.slot)}">
+          ${i === 0 ? `<td rowspan="${g.slots.length}" style="white-space:nowrap;vertical-align:top"><b>${esc(d.short)}</b>${inWindow(d) ? '' : '<span class="hint" style="display:block;margin:0">outside period</span>'}
+            <button class="btn ghost sm" style="display:block;margin-top:8px" data-dayoff="${d.date}" data-off="${allOff ? 1 : 0}">${allOff ? 'Reopen day' : 'No visit (whole day)'}</button></td>` : ''}
+          <td class="slotname">${esc(d.slot)}</td>
+          <td><select data-f="status">${['Open', 'Closed', 'No visit'].map(o => `<option ${o === d.status ? 'selected' : ''}>${o}</option>`).join('')}</select></td>
+          <td><input class="num" type="number" min="0" max="1000" data-f="limit" value="${d.limit}"></td>
+          <td>${d.booked}${d.booked > d.limit ? ' <span class="pill full">over</span>' : ''}</td>
+          <td><input data-f="note" maxlength="200" value="${esc(d.note)}" placeholder="e.g. Other programme this week"></td>
+          <td><button class="btn sm" data-save disabled>Save</button></td>
+        </tr>`).join('');
+      }).join('') + '</tbody>';
+  }
+  $('schedTable').addEventListener('input', e => {
+    const tr = e.target.closest('tr[data-date]'); if (tr) tr.querySelector('[data-save]').disabled = false;
+  });
+  $('schedTable').addEventListener('change', e => {
+    const tr = e.target.closest('tr[data-date]'); if (tr) tr.querySelector('[data-save]').disabled = false;
+  });
+  $('schedTable').addEventListener('click', e => {
+    const off = e.target.closest('[data-dayoff]');
+    if (off) { dayOff(off.dataset.dayoff, off.dataset.off === '1'); return; }
+    const b = e.target.closest('[data-save]'); if (!b) return;
+    const tr = b.closest('tr'), date = tr.dataset.date, slot = tr.dataset.slot;
+    const d = D.schedule.find(x => x.date === date && x.slot === slot);
+    const changes = {
+      status: tr.querySelector('[data-f=status]').value,
+      limit: tr.querySelector('[data-f=limit]').value,
+      note: tr.querySelector('[data-f=note]').value
+    };
+    const go = () => act('adminUpdateDay', [date, slot, changes, USER], 'Saved ' + d.short + ', ' + slot);
+    if (changes.status === 'No visit' && d.status !== 'No visit' && d.booked > 0) {
+      confirmModal('Mark as No visit?', `<b>${d.booked}</b> people are registered for ${esc(d.label)}, ${esc(d.slot)}. Their registrations stay in the list — delete them with a reason (e.g. “Visit cancelled — other programme”) and inform them.`, 'Mark No visit', 'red', go);
+    } else if (parseInt(changes.limit, 10) < d.booked) {
+      confirmModal('Limit below registrations', `${d.booked} people are already registered. Lowering the limit to ${esc(changes.limit)} keeps them, but stops new registrations.`, 'Save', 'gold', go);
+    } else go();
+  });
+
+  function dayOff(date, reopen) {
+    const rows = D.schedule.filter(x => x.date === date);
+    const booked = rows.reduce((a, x) => a + x.booked, 0);
+    if (reopen) {
+      confirmModal('Reopen this day?', `All slots on ${esc(rows[0].label)} will be set back to Open.`, 'Reopen', 'green',
+        () => act('adminUpdateDay', [date, '', { status: 'Open', note: '' }, USER], 'Day reopened'));
+      return;
+    }
+    const m = modal(`<h3>No visit on ${esc(rows[0].label)}</h3>
+      ${booked ? `<div class="msg warn">${booked} people are registered for this day. Their registrations stay in the list — delete them with a reason and inform them.</div>` : ''}
+      <div class="field" style="margin-top:12px"><label for="mNote">Note shown on the form</label><input id="mNote" maxlength="200" value="Other programme this week"></div>
+      <div class="foot-btns"><button class="btn ghost" data-close>Cancel</button><button class="btn red" id="mOk">Mark No visit</button></div>`);
+    m.querySelector('#mOk').addEventListener('click', () => {
+      const note = m.querySelector('#mNote').value;
+      closeModal();
+      act('adminUpdateDay', [date, '', { status: 'No visit', note }, USER], 'Marked No visit');
+    });
+  }
+
+  /* ---------- settings ---------- */
+  function renderSettings() {
+    const s = D.settings;
+    $('sOpen').checked = s.registrations_open;
+    if (document.activeElement !== $('sNotice')) $('sNotice').value = s.notice_text;
+    if (document.activeElement !== $('sReport')) $('sReport').value = s.reporting_time;
+    if (document.activeElement !== $('sCutoff')) $('sCutoff').value = s.cutoff_previous_day;
+    $('urlPublic').value = location.href.replace(/[^/]*$/, '');
+    $('urlOffice').value = location.href.replace(/[^/]*$/, '') + 'office.html';
+  }
+  $('btnSaveSettings').addEventListener('click', () => act('adminSaveSettings', [{
+    registrations_open: $('sOpen').checked, notice_text: $('sNotice').value,
+    reporting_time: $('sReport').value, cutoff_previous_day: $('sCutoff').value
+  }, USER], 'Settings saved'));
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-copy]'); if (!b) return;
+    const input = $(b.dataset.copy); input.select();
+    (navigator.clipboard ? navigator.clipboard.writeText(input.value) : Promise.reject())
+      .then(() => toast('Copied')).catch(() => { document.execCommand('copy'); toast('Copied'); });
+  });
+
+  /* ---------- start ---------- */
+  $('user').value = recall('rj_user');
+  const saved = recall('rj_pass');
+  if (saved && $('user').value) { $('pass').value = saved; login(); }
+</script>
+</body>
+</html>
