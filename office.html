@@ -643,7 +643,7 @@
           <td class="mono">${esc(r.its)}</td>
           <td>${esc(r.jamaat)}</td>
           <td>${esc(r.age)}</td>
-          <td class="mono" style="white-space:nowrap">${r.mobile ? `<a href="https://wa.me/${esc(r.mobile.replace(/\D/g, ''))}" target="_blank" rel="noopener">${esc(r.mobile)}</a>` : ''}</td>
+          <td class="mono" style="white-space:nowrap">${r.mobile.replace(/\D/g, '').length >= 8 ? `<a href="https://wa.me/${esc(r.mobile.replace(/\D/g, ''))}" target="_blank" rel="noopener">${esc(r.mobile)}</a>` : esc(r.mobile)}</td>
           <td class="mono">${esc(r.ref)}</td>
           <td style="white-space:nowrap;font-size:12px;color:var(--muted)">${esc(r.ts)}</td>
           <td>${isDel ? `<button class="btn ghost sm" data-restore="${r.ref}">Restore</button>` : `<button class="btn red sm" data-del="${r.ref}">Delete</button>`}</td>
